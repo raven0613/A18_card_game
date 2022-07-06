@@ -1,0 +1,77 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Koulen', cursive;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around; //每個元素的左右margin是一樣的
+      flex: 7% 0 1;
+      height: 9vw;
+      margin: 0.3rem;
+      border: solid 0.2rem rgb(214, 210, 205);
+
+      img {
+        max-width: 30%;
+        align-self: center;
+      }
+
+      p {
+        margin: 0.5vw;
+        font-size: 1.5vw;
+        &:last-child{
+          transform: rotate(180deg);
+        }
+      }
+  }
+
+  .back{
+    background: url("https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png");
+    background-size: cover;
+  }
+
+  .paired{
+    background-color: rgb(235, 233, 241);
+  }
+  .wrong {
+    animation: wrongAnimation 0.2s;
+    animation-iteration-count: 5;
+  }
+}
+
+header{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0.5rem 2rem;
+
+  img{
+    width: 3rem;
+    margin: 0.5rem;
+  }
+}
+.gameinfo{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0rem 2rem 0.5rem 2rem;
+}
+
+
+
+@keyframes wrongAnimation {
+  0%{}
+  100%{
+    border:  0.2rem solid rgb(247, 170, 28);
+  }
+}

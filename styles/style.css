@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Koulen', cursive;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cards .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-flex: 7%;
+      -ms-flex: 7% 0 1;
+          flex: 7% 0 1;
+  height: 9vw;
+  margin: 0.3rem;
+  border: solid 0.2rem #d6d2cd;
+}
+
+.cards .card img {
+  max-width: 30%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.cards .card p {
+  margin: 0.5vw;
+  font-size: 1.5vw;
+}
+
+.cards .card p:last-child {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.cards .back {
+  background: url("https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png");
+  background-size: cover;
+}
+
+.cards .paired {
+  background-color: #ebe9f1;
+}
+
+.cards .wrong {
+  -webkit-animation: wrongAnimation 0.2s;
+          animation: wrongAnimation 0.2s;
+  -webkit-animation-iteration-count: 5;
+          animation-iteration-count: 5;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin: 0.5rem 2rem;
+}
+
+header img {
+  width: 3rem;
+  margin: 0.5rem;
+}
+
+.gameinfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin: 0rem 2rem 0.5rem 2rem;
+}
+
+@-webkit-keyframes wrongAnimation {
+  0% {
+  }
+  100% {
+    border: 0.2rem solid #f7aa1c;
+  }
+}
+
+@keyframes wrongAnimation {
+  0% {
+  }
+  100% {
+    border: 0.2rem solid #f7aa1c;
+  }
+}
+/*# sourceMappingURL=style.css.map */

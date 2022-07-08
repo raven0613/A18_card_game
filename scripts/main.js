@@ -10,6 +10,7 @@
 //model(資料) view(畫面) controller(流程)
 
 const GAME_STATE = {
+  MemorizeTime: "MemorizeTime",
   FirstCardAwaits: "FirstCardAwaits",
   SecondCardAwaits: "SecondCardAwaits",
   CardsMatchFailed: "CardsMatchFailed",
@@ -37,7 +38,22 @@ const utility = {
   }
 }
 
+
+
+
 const view = {
+
+  getWholeCard(index){
+    const number = this.transformNumber((index % 13) + 1);
+    const symbol = Symbols[Math.floor(index / 13)];
+    return `
+      <div class="card flash" data-index="${index}">
+        <p>${number}</p>
+        <img src="${symbol}" alt="card">
+        <p>${number}</p>
+      </div>
+    `
+  },
 
   getCardElement(index){
     return `
@@ -76,6 +92,11 @@ const view = {
     const rootElement = document.querySelector(".cards"); 
     rootElement.innerHTML = emptyArray.map(index => this.getCardElement(index)).join(''); 
     // rootElement.innerHTML = utility.getRandomNumberArray(52).map(index => this.getCardElement(index)).join(''); 改善前
+  },
+
+  renderWholeCards(emptyArray){
+    const rootElement = document.querySelector(".cards"); 
+    rootElement.innerHTML = emptyArray.map(index => this.getWholeCard(index)).join(''); 
   },
 
   flipCards(...cards){
@@ -119,15 +140,53 @@ const view = {
 
   },
 
-  showGameFinished(){
-    //顯示結算畫面
+  showGameFinished () {
+    const div = document.createElement('div')
+    div.classList.add('finish-panel')
+    div.innerHTML = `
+      <h1>Complete!</h1>
+      <p>Score: ${model.score}</p>
+      <p>You've tried: ${model.triedTimes} times</p>
+      <button class="restart">restart</button>
+    `
+    container.appendChild(div);
+  },
+  
+  closeFinishPanel(){
+    //刪除finish-panel
+    const finishPanel = document.querySelector('.finish-panel');
+    container.removeChild(finishPanel);
   }
+
 }
 
 
 
+
 const controller = {
-  currentState: GAME_STATE.FirstCardAwaits,
+  currentState: GAME_STATE.MemorizeTime,
+
+  gameStart(){
+    view.renderWholeCards(utility.getRandomNumberArray(52));
+    setTimeout( () => { this.gameInitialize();} , 3000);
+  },
+
+  gameInitialize(){
+    const cards = document.querySelectorAll(".card");
+
+    let cardIndex = [];
+    cards.forEach(card => {
+      cardIndex.push(Number(card.dataset.index));
+    })
+    view.renderCards(cardIndex);
+
+    this.currentState = GAME_STATE.FirstCardAwaits;
+
+
+    container.addEventListener("click" , function onContainerClicked(e){
+      controller.dispatchCardAction(e.target);
+    })
+  },
 
   generateCards(){
     view.renderCards(utility.getRandomNumberArray(52));
@@ -155,7 +214,13 @@ const controller = {
           this.currentState = GAME_STATE.CardsMatched;
           view.pairCards(...model.revealCards);
           model.revealCards = [];
-          view.renderScore(model.score+=10);
+          view.renderScore(model.score += 10);
+
+          if (model.score >= 260) {
+            this.currentState = GAME_STATE.GameFinished
+            view.showGameFinished()  // 加在這裡
+            break;
+          }
           this.currentState = GAME_STATE.FirstCardAwaits;
         }
         else {
@@ -165,20 +230,33 @@ const controller = {
           setTimeout( () => { this.resetCards();} , 1000); //這樣寫的話  這邊的this 是指controller
           //或是 setTimeout(this.resetCards , 1000); 這邊的resetCard不能有()不然會失敗  這樣寫的話  這邊的this 就是指window
         }
-        
         break;
-        
     }
-    console.log("GAME_STATE:" + this.currentState);
   },
 
   resetCards(){
     view.flipCards(...model.revealCards);
     model.revealCards = [];
     this.currentState = GAME_STATE.FirstCardAwaits;
+  },
+
+  restart(){
+    this.gameStart();
+    view.closeFinishPanel();
+    model.revealCards = [];
+    model.score = 0;
+    model.triedTimes = 0;
+    view.renderScore(model.score);
+    view.renderTriedTimes(model.triedTimes);
+    this.currentState = GAME_STATE.MemorizeTime;
   }
 
 }
+
+
+
+
+
 
 const model = {
   revealCards: [],
@@ -191,12 +269,17 @@ const model = {
   triedTimes: 0
 }
 
-controller.generateCards();
+controller.gameStart();
 
 
-//為何不用target.matches("class")?
-const cards = document.querySelectorAll(".card");
-cards.forEach(card => 
-  card.addEventListener("click" , function onCardClicked(e){
-    controller.dispatchCardAction(card);
-  }))
+const container = document.querySelector('.container')
+container.addEventListener("click" , function onContainerClicked(e){
+  if(GAME_STATE.GameFinished){
+
+    if(e.target.matches(".restart")){
+      controller.restart();
+    }
+  }
+})
+
+

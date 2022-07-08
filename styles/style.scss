@@ -7,12 +7,16 @@
   font-family: 'Nunito', sans-serif;
   font-family: 'Quicksand', sans-serif;
 }
+.container{
+  height: 100%;
 
-.cards{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  .card {
+  .cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    z-index: 0;
+
+    .card {
       display: flex;
       flex-direction: column;
       justify-content: space-around; //每個元素的左右margin是一樣的
@@ -20,7 +24,7 @@
       height: 9vw;
       margin: 0.3rem;
       border: solid 0.2rem rgb(214, 210, 205);
-
+      
       img {
         max-width: 30%;
         align-self: center;
@@ -29,12 +33,54 @@
       p {
         margin: 0.5vw;
         font-size: 1.5vw;
-        &:last-child{
+
+        &:last-child {
           transform: rotate(180deg);
         }
       }
+    }
   }
 
+  .finish-panel {
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    background-color: RGBA(232, 246, 254, 0.8);
+    z-index: 1;
+    top: -50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: finish 0.3s ease-in-out;
+    h1{
+      font-size: 2.5rem;
+      padding: 0.5rem;
+      animation: pop 0.2s ease-in forwards 0.3s;
+      opacity: 0%;
+    }
+    p{
+      font-size: 1.5rem;
+      animation: pop 0.2s ease-in forwards 0.5s;
+      opacity: 0%;
+    }
+    .restart{
+      opacity: 0%;
+      background-color: rgb(102, 179, 230);
+      border: none;
+      margin: 0.5rem;
+      padding: 0.3rem 0.8rem;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      color: white;
+      animation: pop 0.2s ease-in forwards 0.7s;
+      &:hover{
+        background-color: rgb(64, 150, 207);
+        color: white;
+      }
+    }
+  }
+}
   .back{
     background: url("https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png");
     background-size: cover;
@@ -47,7 +93,11 @@
     animation: wrongAnimation 0.2s;
     animation-iteration-count: 5;
   }
-}
+  .flash{
+    animation: flash 0.5s ease-in 1.3s 3;
+  }
+
+
 
 header{
   display: flex;
@@ -67,11 +117,44 @@ header{
   margin: 0rem 2rem 0.5rem 2rem;
 }
 
-
-
 @keyframes wrongAnimation {
   0%{}
   100%{
     border:  0.2rem solid rgb(253, 175, 29);
+  }
+}
+
+@keyframes finish {
+  0%{
+    transform: translateX(-100vw);
+  }
+  100%{}
+}
+
+@keyframes pop {
+  0% {
+    transform: translateY(10rem);
+    opacity: 0%;
+  }
+  95% {
+    transform: translateY(-1rem);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0rem);
+  }
+}
+
+@keyframes flash {
+  0%{
+    // border: 0.2rem solid rgb(197, 131, 8);
+  }
+  50%{
+    filter: invert(52%) sepia(82%) saturate(50%) hue-rotate(327deg) brightness(200%) contrast(92%);
+    // background-color: rgb(255, 179, 79);
+    // color: rgb(255, 179, 79);
+  }
+  100% {
+  
   }
 }

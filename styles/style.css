@@ -9,18 +9,23 @@
   font-family: 'Quicksand', sans-serif;
 }
 
-.cards {
+.container {
+  height: 100%;
+}
+
+.container .cards {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  z-index: 0;
 }
 
-.cards .card {
+.container .cards .card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -38,37 +43,99 @@
   border: solid 0.2rem #d6d2cd;
 }
 
-.cards .card img {
+.container .cards .card img {
   max-width: 30%;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
 }
 
-.cards .card p {
+.container .cards .card p {
   margin: 0.5vw;
   font-size: 1.5vw;
 }
 
-.cards .card p:last-child {
+.container .cards .card p:last-child {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
 
-.cards .back {
+.container .finish-panel {
+  width: 100%;
+  height: 30vh;
+  position: relative;
+  background-color: RGBA(232, 246, 254, 0.8);
+  z-index: 1;
+  top: -50vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-animation: finish 0.3s ease-in-out;
+          animation: finish 0.3s ease-in-out;
+}
+
+.container .finish-panel h1 {
+  font-size: 2.5rem;
+  padding: 0.5rem;
+  -webkit-animation: pop 0.2s ease-in forwards 0.3s;
+          animation: pop 0.2s ease-in forwards 0.3s;
+  opacity: 0%;
+}
+
+.container .finish-panel p {
+  font-size: 1.5rem;
+  -webkit-animation: pop 0.2s ease-in forwards 0.5s;
+          animation: pop 0.2s ease-in forwards 0.5s;
+  opacity: 0%;
+}
+
+.container .finish-panel .restart {
+  opacity: 0%;
+  background-color: #66b3e6;
+  border: none;
+  margin: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  color: white;
+  -webkit-animation: pop 0.2s ease-in forwards 0.7s;
+          animation: pop 0.2s ease-in forwards 0.7s;
+}
+
+.container .finish-panel .restart:hover {
+  background-color: #4096cf;
+  color: white;
+}
+
+.back {
   background: url("https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png");
   background-size: cover;
 }
 
-.cards .paired {
+.paired {
   background-color: #ebe9f1;
 }
 
-.cards .wrong {
+.wrong {
   -webkit-animation: wrongAnimation 0.2s;
           animation: wrongAnimation 0.2s;
   -webkit-animation-iteration-count: 5;
           animation-iteration-count: 5;
+}
+
+.flash {
+  -webkit-animation: flash 0.5s ease-in 1.3s 3;
+          animation: flash 0.5s ease-in 1.3s 3;
 }
 
 header {
@@ -107,7 +174,7 @@ header img {
   0% {
   }
   100% {
-    border: 0.2rem solid #f7aa1c;
+    border: 0.2rem solid #fdaf1d;
   }
 }
 
@@ -115,7 +182,81 @@ header img {
   0% {
   }
   100% {
-    border: 0.2rem solid #f7aa1c;
+    border: 0.2rem solid #fdaf1d;
+  }
+}
+
+@-webkit-keyframes finish {
+  0% {
+    -webkit-transform: translateX(-100vw);
+            transform: translateX(-100vw);
+  }
+  100% {
+  }
+}
+
+@keyframes finish {
+  0% {
+    -webkit-transform: translateX(-100vw);
+            transform: translateX(-100vw);
+  }
+  100% {
+  }
+}
+
+@-webkit-keyframes pop {
+  0% {
+    -webkit-transform: translateY(10rem);
+            transform: translateY(10rem);
+    opacity: 0%;
+  }
+  95% {
+    -webkit-transform: translateY(-1rem);
+            transform: translateY(-1rem);
+  }
+  100% {
+    opacity: 100%;
+    -webkit-transform: translateY(0rem);
+            transform: translateY(0rem);
+  }
+}
+
+@keyframes pop {
+  0% {
+    -webkit-transform: translateY(10rem);
+            transform: translateY(10rem);
+    opacity: 0%;
+  }
+  95% {
+    -webkit-transform: translateY(-1rem);
+            transform: translateY(-1rem);
+  }
+  100% {
+    opacity: 100%;
+    -webkit-transform: translateY(0rem);
+            transform: translateY(0rem);
+  }
+}
+
+@-webkit-keyframes flash {
+  0% {
+  }
+  50% {
+    -webkit-filter: invert(52%) sepia(82%) saturate(50%) hue-rotate(327deg) brightness(200%) contrast(92%);
+            filter: invert(52%) sepia(82%) saturate(50%) hue-rotate(327deg) brightness(200%) contrast(92%);
+  }
+  100% {
+  }
+}
+
+@keyframes flash {
+  0% {
+  }
+  50% {
+    -webkit-filter: invert(52%) sepia(82%) saturate(50%) hue-rotate(327deg) brightness(200%) contrast(92%);
+            filter: invert(52%) sepia(82%) saturate(50%) hue-rotate(327deg) brightness(200%) contrast(92%);
+  }
+  100% {
   }
 }
 /*# sourceMappingURL=style.css.map */
